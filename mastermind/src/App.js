@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter,Route } from 'react-router-dom';
 import RandomNumber from './components/RandomNum';
+import Home from './views/home';
 
 function App() {
   let urlPath = window.location.pathname;
@@ -8,8 +9,11 @@ function App() {
   return (
     <BrowserRouter>
     <Route exact path = "/">
-        <RandomNumber />
-      </Route>
+      <Home />
+    </Route>
+    <Route path = "/game">
+      <RandomNumber />
+    </Route>
       </BrowserRouter>
   );
 }
