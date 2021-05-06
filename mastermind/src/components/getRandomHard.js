@@ -1,8 +1,8 @@
-//fetch from API to get a random number 
+//fetch from API to get a random number of 8 digits
 
-async function getRandomNumber(){
+async function getRandomHard(){
 
-    let url = `https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
+    let url = `https://www.random.org/integers/?num=6&min=0&max=8&col=1&base=10&format=plain&rnd=new`;
 
     return fetch(url,{
         method:'GET',
@@ -14,4 +14,4 @@ async function getRandomNumber(){
     .catch(error => console.log(error))
 }
 
-export default getRandomNumber;
+export default getRandomHard;

@@ -2,7 +2,7 @@
 
 async function getRandomMedium(){
 
-    let url = `https://www.random.org/integers/?num=6&min=0&max=8&col=1&base=10&format=plain&rnd=new`;
+    let url = `https://www.random.org/integers/?num=6&min=0&max=6&col=1&base=10&format=plain&rnd=new`;
 
     return fetch(url,{
         method:'GET',
@@ -12,7 +12,6 @@ async function getRandomMedium(){
        return number.replace(/(?:\r\n|\r|\n)/g, "").toString()
     })
     .catch(error => console.log(error))
-
 }
 
 export default getRandomMedium;

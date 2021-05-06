@@ -1,5 +1,5 @@
 import React from 'react';
-import getRandomNumber from './getRandom';
+import getRandomHard from './getRandomHard';
 import Confetti from "react-dom-confetti";
 import ParticlesBg from 'particles-bg';
 import won from "../audio/won.wav";
@@ -10,20 +10,20 @@ const wonGame = new Audio(won);
 const lostGame = new Audio(lost);
 const wrong = new Audio(wrongAnswer);
 
-function RandomNumber() {
+function RandomNumberHard() {
     const [randomNumber, setRandomNumber] = React.useState();
     const [guessesLeft, setGuessesLeft] = React.useState(10);
-    const hiddenNumber = " _ ".repeat(4); //changed
+    const hiddenNumber = " _ ".repeat(6); 
     const [party,setParty] = React.useState(false);
     const gameOver = guessesLeft <= 0;
-    const enableHints = guessesLeft <=3;
+    const enableHints = guessesLeft <=6;
     const [guess, setGuess] = React.useState("")
     let isMatch = false;
     let [guessedNumber, setGuessedNumber] = React.useState(new Set([]));
 
     React.useEffect(() => {
         let mounted = true;
-        getRandomNumber()
+        getRandomHard()
         .then((number) => {
             if(mounted){
                 setRandomNumber(number)
@@ -124,44 +124,45 @@ function RandomNumber() {
     
     return (
         <div>
-            <div style={{textAlign: "center", color: '#D7841D', marginTop: '60px'}}>
+            <div style={{textAlign: "center", color: '#C7D3C5', marginTop: '60px'}}>
             <h1 style={{fontSize: '38px'}}>Mastermind Game <Confetti active={ party } config={ config } /></h1>
-            <h2>Level 1 </h2>
-            <p style={{fontWeight: 'bold'}}>Guess 4 numbers(0-7)</p>
+            <h2>Level 3</h2>
+            <p style={{fontWeight: 'bold'}}>Guess 6 numbers(0-8)</p>
+        
                 <div id="mainGame">
-                    <div><p id="guesses" style={{color: '#C5791B', fontWeight: 'bold'}}> Number of Guesses Remaining: {guessesLeft}</p></div>
-                    <p style={{color: '#C5791B', fontWeight: 'bold'}}>Guess the Number: {console.log(randomNumber)}</p>
+                    <div><p id="guesses" style={{color: '#C7D3C5', fontWeight: 'bold'}}> Number of Guesses Remaining: {guessesLeft}</p></div>
+                    <p style={{color: '#C7D3C5', fontWeight: 'bold'}}>Guess the Number: {console.log(randomNumber)}</p>
                     <p id="hiddenNumber"> {hiddenNumber} </p>
 
-                    <p id="correct" style={{color: '#C5791B', fontWeight: 'bold'}}></p>
+                    <p id="correct" style={{color: '#C7D3C5', fontWeight: 'bold'}}></p>
                     
-                    <p id="hint" style={{color: '#C5791B', fontWeight: 'bold'}}> </p>
+                    <p id="hint" style={{color: '#C7D3C5', fontWeight: 'bold'}}> </p>
                     <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder="enter guess" maxLength="4" value={guess} onChange={handleGuess}></input>
+                    <input type="text" placeholder="enter guess" maxLength="6" value={guess} onChange={handleGuess}></input>
                     <br />
-                    <input id="submitbtn" type="submit" value="Submit Guess" style={{backgroundColor: '#FFBF70', position: 'center', marginTop: '10px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333'}}></input>
+                    <input id="submitbtn" type="submit" value="Submit Guess" style={{backgroundColor: '#C7D3C5', position: 'center', marginTop: '10px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333'}}></input>
                     </form>
-                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#FFBF70', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '45%', display: 'none'}}>Hint</button>
+                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#C7D3C5', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '45%', display: 'none'}}>Hint</button>
                 </div>
             </div>
 
-            <div style={{textAlign: "center", color: '#D7841D', marginTop: '60px'}}>
-                <p style={{color: '#C5791B', fontWeight: 'bold', fontSize: '24px'}}>
+            <div style={{textAlign: "center", color: '#C7D3C5', marginTop: '60px'}}>
+                <p style={{color: '#C7D3C5', fontWeight: 'bold', fontSize: '24px'}}>
                 <p id="outcome"> </p>
                 {!gameOver ? '': `The correct number was ${randomNumber}`}
                 </p>
-                <button id="restartbtn" onClick={handleRestart} style={{backgroundColor: '#FFBF70', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>New Game</button>    
-                <button id="homebtn" onClick={handleHome} style={{backgroundColor: '#FFBF70', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>Home</button>    
+                <button id="restartbtn" onClick={handleRestart} style={{backgroundColor: '#C7D3C5', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>New Game</button>    
+                <button id="homebtn" onClick={handleHome} style={{backgroundColor: '#C7D3C5', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>Home</button>    
             </div>
 
-            <div id="usersGuesses" style={{color: '#C5791B', fontWeight: 'bold', backgroundColor: '#FFD6AD', textAlign: 'center' , width: '700px', height: '100px', marginLeft: '20%', marginRight: '20%'}}>
+            <div id="usersGuesses" style={{color: '#C7D3C5', fontWeight: 'bold', backgroundColor: 'black', textAlign: 'center' , width: '700px', height: '100px', marginLeft: '20%', marginRight: '20%'}}>
                 <h2>Your Guesses:</h2>
                 <p id="guessedNumbers"> {[...guessedNumber].join(' ')}</p>
             </div>
 
-            <ParticlesBg type="cobweb" bg={true} />
+            <ParticlesBg type="lines" bg={true} />
         </div>
     )
 }
 
-export default RandomNumber;
+export default RandomNumberHard;
