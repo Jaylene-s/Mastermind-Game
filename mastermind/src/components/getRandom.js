@@ -1,5 +1,4 @@
 //fetch from API to get a random number 
-import React from 'react';
 
 async function getRandomNumber(){
 

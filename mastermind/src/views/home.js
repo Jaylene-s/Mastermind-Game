@@ -27,8 +27,8 @@ class Home extends Component {
           <h1 style={{fontSize: '46px', textAlign: 'center'}}>Mastermind Game</h1>
           <div textAlign='center'>
           <h2 style={{fontSize: '24px'}}>Instructions: </h2>
-            <p>When you click on "Generate A Number" the computer will randomly select a pattern of four different numbers. You'll have 10 attempts to guess the combination. 
-                After each attempt the computer will let you know if any number was guessed correctly or it's location. </p>
+            <p>When you click on the Start Game button the computer will randomly select a pattern of four different numbers. You have 10 attempts to guess the combination. 
+                After each attempt the computer will let you know if any number was guessed correctly or if the location of a number was guessed correctly. </p>
 
               <button style={{
                   backgroundColor: '#FFBF70',

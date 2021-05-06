@@ -13,14 +13,12 @@ const wrong = new Audio(wrongAnswer);
 function RandomNumber() {
     const [randomNumber, setRandomNumber] = React.useState();
     const [guessesLeft, setGuessesLeft] = React.useState(10);
-    const [hiddenNumber, setHiddenNumber] = React.useState(" _ ".repeat(4));
+    const hiddenNumber = " _ ".repeat(4); //changed
     const [party,setParty] = React.useState(false);
     const gameOver = guessesLeft <= 0;
     const [guess, setGuess] = React.useState("")
     let isMatch = false;
     let [guessedNumber, setGuessedNumber] = React.useState(new Set([]));
-    // let [correctNumber, setCorrectNumber] = React.useState(false)
-    let correctNumber;
 
     React.useEffect(() => {
         let mounted = true;
@@ -46,7 +44,7 @@ function RandomNumber() {
         height: "15px",
         perspective: "804px",
         colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,48 +64,42 @@ function RandomNumber() {
             const button = document.getElementById("submitbtn");
             button.style.display= "none";
         }
-        //user guessed a right number only
-        
-        // console.log(guess)
+
         if(guess !== randomNumber){
             wrong.play()
             setGuessedNumber(guessedNumber.add(guess))
+            // user feedback
+            for(let i = 0; i < guess.length-1; i++){
+                //found correct num
+                if(guess[i] === randomNumber.charAt(0) || guess[i] === randomNumber.charAt(1) || guess[i] === randomNumber.charAt(2) || guess[i] === randomNumber.charAt(3)){ 
+                    const foundNumber = document.getElementById('correct');
+                    foundNumber.innerHTML = `A number was guessed correctly`
+                }else if(guess[0] === randomNumber.charAt(0) || guess[1] === randomNumber.charAt(1) || guess[2] === randomNumber.charAt(2) || guess[3] === randomNumber.charAt(3)){
+                    const foundLocation = document.getElementById('correct');
+                    foundLocation.innerText = `You guessed a correct number in its correct location`
+                }else{ //no numbers matched
+                    const notFound = document.getElementById('correct')
+                    notFound.innerText = `No numbers matched`
+                }
+            }
         }        
-
-        // for(let i=0; i<guess.length; i++){
-        //     if(guess[i] === randomNumber[i]){
-        //         console.log(guess[i])
-        //         console.log(randomNumber[i])
-        //         correctNumber = true
-        //     }else if(guess[i] !== randomNumber[i]){
-        //         correctNumber = false
-        //     }
-        //     console.log(correctNumber)
-        // }
     }
-    const handleHints = (e) => { //enable after 5 hints 
+
+    const handleHints = (e) => { 
         e.preventDefault();
         const hint = document.getElementById("hint");
         hint.innerText = `Hint: Only ${guess.split("").map(num => (randomNumber.includes(num) ? num : ""))} was correct`
-        // const correctlyGuessed = document.getElementById("correct");
     }
-    // const handleStart = (e) => {
-    
-    //     setGuessesLeft(10)
-    //     isMatch = false;
-    //     setHiddenNumber(randomNumber.split("").map(num =>  " _ "));
-    //     console.log('started game')
-    //     console.log(randomNumber)
-        
-    // }
 
     const handleGuess = (e) => {
         const value = e.target.value;
         setGuess(value)
     }
-    const handleRestart = (e) => {
+
+    const handleRestart = () => {
         window.location.reload(true);
     }
+
     if(gameOver){
         lostGame.play()
         const mainGame = document.getElementById("mainGame");
@@ -115,6 +107,7 @@ function RandomNumber() {
         const restartbtn = document.getElementById("restartbtn");
         restartbtn.style.display = "block";
     }
+
     return (
         <div>
             <div style={{textAlign: "center", color: '#D7841D', marginTop: '80px'}}>
@@ -125,7 +118,8 @@ function RandomNumber() {
                     <p style={{color: '#C5791B', fontWeight: 'bold'}}>Guess the Number: {console.log(randomNumber)}</p>
                     <p id="hiddenNumber"> {hiddenNumber} </p>
 
-                    <p id="correct"> </p>
+                    <p id="correct" style={{color: '#C5791B', fontWeight: 'bold'}}></p>
+                    
                     <p id="hint" style={{color: '#C5791B', fontWeight: 'bold'}}> </p>
                     <form onSubmit={handleSubmit}>
                     <input type="text" placeholder="enter guess" maxLength="4" value={guess} onChange={handleGuess}></input>

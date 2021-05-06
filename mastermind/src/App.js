@@ -1,10 +1,9 @@
-import './App.css';
+import React from "react";
 import { BrowserRouter,Route } from 'react-router-dom';
 import RandomNumber from './components/RandomNum';
 import Home from './views/home';
 
 function App() {
-  let urlPath = window.location.pathname;
 
   return (
     <BrowserRouter>
