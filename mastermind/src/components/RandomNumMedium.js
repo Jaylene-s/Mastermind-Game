@@ -32,6 +32,19 @@ function RandomNumberMedium() {
         .catch(err => console.log(err))
         return () => mounted = false;
     }, []);
+    const config = {
+        angle: "184",
+        spread: 360,
+        startVelocity: "87",
+        elementCount: "135",
+        dragFriction: "0.09",
+        duration: "7050",
+        stagger: "7",
+        width: "23px",
+        height: "15px",
+        perspective: "804px",
+        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,26 +64,32 @@ function RandomNumberMedium() {
             userGuesses.style.display = "none";
             const restartbtn = document.getElementById("restartbtn");
             restartbtn.style.display = "block";
+            const homebtn = document.getElementById("homebtn");
+            homebtn.style.display = "block";
         }
 
         if(guess !== randomNumber){
             wrong.play()
             setGuessedNumber(guessedNumber.add(guess))
             // user feedback
-            for(let i = 0; i < guess.length-1; i++){
-                //found correct num
-                if(guess[i] === randomNumber.charAt(0) || guess[i] === randomNumber.charAt(1) || guess[i] === randomNumber.charAt(2) || guess[i] === randomNumber.charAt(3)){ 
-                    const foundNumber = document.getElementById('correct');
-                    foundNumber.innerHTML = `A number was guessed correctly`
-                }else if(guess[0] === randomNumber.charAt(0) || guess[1] === randomNumber.charAt(1) || guess[2] === randomNumber.charAt(2) || guess[3] === randomNumber.charAt(3)){
+            let inputGuess = false;
+            for(let i = 0; i < guess.length; i++){
+                if(guess[0] === randomNumber.charAt(0) || guess[1] === randomNumber.charAt(1) || guess[2] === randomNumber.charAt(2) || guess[3] === randomNumber.charAt(3) || guess[4] === randomNumber.charAt(4) || guess[5] === randomNumber.charAt(5)){
                     const foundLocation = document.getElementById('correct');
                     foundLocation.innerText = `You guessed a correct number in its correct location`
+                }
+                else if(guess[i] === randomNumber.charAt(0) || guess[i] === randomNumber.charAt(1) || guess[i] === randomNumber.charAt(2) || guess[i] === randomNumber.charAt(3)){ 
+                 inputGuess = true;                    
                 }else{ //no numbers matched
                     const notFound = document.getElementById('correct')
                     notFound.innerText = `No numbers matched`
                 }
             }
-        }        
+            if(inputGuess){
+                    const foundNumber = document.getElementById('correct');
+                    foundNumber.innerHTML = `A number was guessed correctly`
+                }
+        }       
     }
 
     const handleHints = (e) => { 
@@ -110,43 +129,43 @@ function RandomNumberMedium() {
 
     return (
         <div>
-            <div style={{textAlign: "center", color: '#8A9EC6', marginTop: '60px'}}>
-            <h1 style={{fontSize: '38px'}}>Mastermind Game <Confetti active={ party } /></h1>
+            <div style={{textAlign: "center", color: '#78678E', marginTop: '60px', width: '600px', marginLeft: '25%'}}>
+            <h1 style={{fontSize: '38px'}}>Mastermind Game <Confetti active={ party } config={ config } /></h1>
             <h2>Level 2</h2>
             <p style={{fontWeight: 'bold'}}>Guess the 6 numbers(0-6)</p>
         
                 <div id="mainGame">
-                    <div><p id="guesses" style={{color: '#8A9EC6', fontWeight: 'bold'}}> Number of Guesses Remaining: {guessesLeft}</p></div>
-                    <p style={{color: '#8A9EC6', fontWeight: 'bold'}}>Guess the Number: {console.log(randomNumber)}</p>
+                    <div><p id="guesses" style={{color: '#78678E', fontWeight: 'bold'}}> Number of Guesses Remaining: {guessesLeft}</p></div>
+                    <p style={{color: '#78678E', fontWeight: 'bold'}}>Guess the Number: {console.log(randomNumber)}</p>
                     <p id="hiddenNumber"> {hiddenNumber} </p>
 
-                    <p id="correct" style={{color: '#8A9EC6', fontWeight: 'bold'}}></p>
+                    <p id="correct" style={{color: '#78678E', fontWeight: 'bold'}}></p>
                     
-                    <p id="hint" style={{color: '#8A9EC6', fontWeight: 'bold'}}> </p>
+                    <p id="hint" style={{color: '#78678E', fontWeight: 'bold'}}> </p>
                     <form onSubmit={handleSubmit}>
                     <input type="text" placeholder="enter guess" maxLength="6" value={guess} onChange={handleGuess}></input>
                     <br />
-                    <input id="submitbtn" type="submit" value="Submit Guess" style={{backgroundColor: '#8A9EC6', position: 'center', marginTop: '10px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333'}}></input>
+                    <input id="submitbtn" type="submit" value="Submit Guess" style={{backgroundColor: '#78678E', position: 'center', marginTop: '10px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333'}}></input>
+                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#78678E', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '42%', display: 'none'}}>Hint</button>
                     </form>
-                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#8A9EC6', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '45%', display: 'none'}}>Hint</button>
                 </div>
             </div>
 
-            <div style={{textAlign: "center", color: '#8A9EC6', marginTop: '60px'}}>
-                <p style={{color: '#8A9EC6', fontWeight: 'bold', fontSize: '24px'}}>
+            <div style={{textAlign: "center", color: '#78678E', marginTop: '60px'}}>
+                <p style={{color: '#78678E', fontWeight: 'bold', fontSize: '24px'}}>
                 <p id="outcome"> </p>
                 {!gameOver ? '': `The correct number was ${randomNumber}`}
                 </p>
-                <button id="restartbtn" onClick={handleRestart} style={{backgroundColor: '#8A9EC6', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>New Game</button>    
-                <button id="homebtn" onClick={handleHome} style={{backgroundColor: '#8A9EC6', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>Home</button>    
+                <button id="restartbtn" onClick={handleRestart} style={{backgroundColor: '#78678E', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>New Game</button>    
+                <button id="homebtn" onClick={handleHome} style={{backgroundColor: '#78678E', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>Home</button>    
             </div>
 
-            <div id="usersGuesses" style={{color: '#8A9EC6', fontWeight: 'bold', backgroundColor: '#FFD6AD', textAlign: 'center' , width: '700px', height: '100px', marginLeft: '20%', marginRight: '20%'}}>
+            <div id="usersGuesses" style={{color: '#78678E', fontWeight: 'bold', backgroundColor: '#FFD6AD', textAlign: 'center' , width: '600px', height: '100px', marginLeft: '25%', marginRight: '25%'}}>
                 <h2>Your Guesses:</h2>
                 <p id="guessedNumbers"> {[...guessedNumber].join(' ')}</p>
             </div>
 
-            <ParticlesBg type="tadpole" bg={true} />
+            <ParticlesBg type="tadpole" bg={true} color='#ADA0BA'/>
         </div>
     )
 }

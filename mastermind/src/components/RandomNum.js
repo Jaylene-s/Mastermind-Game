@@ -65,25 +65,31 @@ function RandomNumber() {
             userGuesses.style.display = "none";
             const restartbtn = document.getElementById("restartbtn");
             restartbtn.style.display = "block";
+            const homebtn = document.getElementById("homebtn");
+            homebtn.style.display = "block";
         }
 
         if(guess !== randomNumber){
             wrong.play()
             setGuessedNumber(guessedNumber.add(guess))
             // user feedback
-            for(let i = 0; i < guess.length-1; i++){
-                //found correct num
-                if(guess[i] === randomNumber.charAt(0) || guess[i] === randomNumber.charAt(1) || guess[i] === randomNumber.charAt(2) || guess[i] === randomNumber.charAt(3)){ 
-                    const foundNumber = document.getElementById('correct');
-                    foundNumber.innerHTML = `A number was guessed correctly`
-                }else if(guess[0] === randomNumber.charAt(0) || guess[1] === randomNumber.charAt(1) || guess[2] === randomNumber.charAt(2) || guess[3] === randomNumber.charAt(3)){
+            let inputGuess = false;
+            for(let i = 0; i < guess.length; i++){
+                if(guess[0] === randomNumber.charAt(0) || guess[1] === randomNumber.charAt(1) || guess[2] === randomNumber.charAt(2) || guess[3] === randomNumber.charAt(3)){
                     const foundLocation = document.getElementById('correct');
                     foundLocation.innerText = `You guessed a correct number in its correct location`
+                }
+                else if(guess[i] === randomNumber.charAt(0) || guess[i] === randomNumber.charAt(1) || guess[i] === randomNumber.charAt(2) || guess[i] === randomNumber.charAt(3)){ 
+                 inputGuess = true;                    
                 }else{ //no numbers matched
                     const notFound = document.getElementById('correct')
                     notFound.innerText = `No numbers matched`
                 }
             }
+            if(inputGuess){
+                    const foundNumber = document.getElementById('correct');
+                    foundNumber.innerHTML = `A number was guessed correctly`
+                }
         }        
     }
 
@@ -141,7 +147,7 @@ function RandomNumber() {
                     <br />
                     <input id="submitbtn" type="submit" value="Submit Guess" style={{backgroundColor: '#FFBF70', position: 'center', marginTop: '10px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333'}}></input>
                     </form>
-                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#FFBF70', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '45%', display: 'none'}}>Hint</button>
+                    <button id="hintbtn" onClick={handleHints} style={{backgroundColor: '#FFBF70', position: 'center', marginTop: '20px', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', marginLeft: '46%', display: 'none'}}>Hint</button>
                 </div>
             </div>
 
@@ -154,7 +160,7 @@ function RandomNumber() {
                 <button id="homebtn" onClick={handleHome} style={{backgroundColor: '#FFBF70', marginTop: '10px', marginLeft: '45%', width: '100px', height: '50px', borderRadius: '10px', borderColor: '#333333', display: 'none'}}>Home</button>    
             </div>
 
-            <div id="usersGuesses" style={{color: '#C5791B', fontWeight: 'bold', backgroundColor: '#FFD6AD', textAlign: 'center' , width: '700px', height: '100px', marginLeft: '20%', marginRight: '20%'}}>
+            <div id="usersGuesses" style={{color: '#C5791B', fontWeight: 'bold', backgroundColor: '#FFD6AD', textAlign: 'center' , width: '700px', height: '100px', marginLeft: '25%', marginRight: '25%'}}>
                 <h2>Your Guesses:</h2>
                 <p id="guessedNumbers"> {[...guessedNumber].join(' ')}</p>
             </div>
