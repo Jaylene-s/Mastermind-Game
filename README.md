@@ -48,6 +48,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 ## Style Guide
 
 This project adheres to the [Airbnb Style Guide](https://github.com/airbnb/javascript).
-
-## App is deployed here: 
-[here](https://mastermind-game-app.netlify.app/)
