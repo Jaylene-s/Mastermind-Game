@@ -22,7 +22,7 @@ class Home extends Component {
             position: 'absolute',
             width: '350px',
             height: '400px',
-            top: '30%',
+            top: '20%',
             left: '50%',
             margin: '-100px 0 0 -150px',
             fontWeight: 'bold'
